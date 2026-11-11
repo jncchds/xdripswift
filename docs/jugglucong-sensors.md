@@ -14,8 +14,8 @@ under "Test on a Mac" has to happen before anyone relies on these readings.
 | iCan i3/i6 (Sinocare) | Ported, already-started sensors only | `Add direct Bluetooth support for iCan i3/i6 sensors` |
 | Sibionics GS1/GS2 | Skipped | – |
 | Ottai / SyAi | Skipped | – |
-| MQ / Glutec | Skipped | – |
-| Anytime / Yuwell | Skipped | – |
+| MQ / Glutec | Skipped (vendor cloud + MAC) | – |
+| Anytime / Yuwell | Skipped (CT5 possible later) | – |
 | CareSens Air | Skipped | – |
 
 Core Data: AiDex adds model **v38** (entity `AiDex`), SmartGuide **v39** (`AccuChekSmartGuide`),
@@ -186,11 +186,16 @@ onboarding-verification paths.
   `SibionicsExactV116A.kt`). Not safe to ship raw, not reviewable to port.
 - **Ottai / SyAi**: glucose comes from a per-device formula the Ottai cloud sends encrypted, and
   fresh V3 sensors need cloud-mediated authentication. Requires the vendor cloud at runtime.
-- **MQ / Glutec**: raw current only. Glucose needs vendor-cloud parameters (login + the
-  Bluetooth MAC, which iOS does not expose) or local fingerstick calibration; JugglucoNG's own
-  status text is "Need vendor restore or local calibration".
-- **Anytime / Yuwell**: the `libalgorithm-jni.so` fallback is not good enough: the CT3 kernel port
-  is not wired even in JugglucoNG, CT2/CT4 use empirical models, and only CT5 computes glucose
-  in the transmitter (and stops at end of life), behind an extra encrypted identity layer.
+- **MQ / Glutec**: raw current only. Glucose needs the QR sensitivity plus a transmitter scale
+  flag that only the vendor cloud returns, and the cloud session needs the Bluetooth MAC, which
+  iOS does not expose. JugglucoNG's own notes (`docs/mq-bootstrap-evidence.md`) say accuracy is
+  not device-validated and report clamped readings after QR bootstrap. Not portable safely.
+- **Anytime / Yuwell**: CT2/CT3/CT4 need the vendor algorithm (the CT3 kernel port is not wired
+  even in JugglucoNG; CT2/CT4 use empirical models). **CT5** is the candidate for a later port:
+  its handshake is local (check → setID → session cipher → querySSN → setParameters) and the
+  transmitter computes glucose. Not ported yet because the transmitter computes glucose from the
+  K/R calibration the app writes in setParameters; when the SSN does not decode, JugglucoNG falls
+  back to default K/R, so an untested port could produce plausible but wrong values. Needs a CT5
+  on the bench.
 - **CareSens Air**: glucose comes from i-SENS' `libCALCULATION.so` (vendor binary loaded at
   runtime).
