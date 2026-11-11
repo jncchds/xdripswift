@@ -106,6 +106,9 @@ enum ConstantsLog {
     /// medtrum touchcare nano cgm (BLE co-listener)
     static let categoryCGMMedtrumTouchCareNano =            "CGMMedtrumTouchCareNano       "
 
+    /// AiDex X / LinX direct Bluetooth CGM
+    static let categoryCGMAiDex =                           "CGMAiDex                      "
+
     /// alertmanager
     static let categoryAlertManager =                       "AlertManager                  "
     

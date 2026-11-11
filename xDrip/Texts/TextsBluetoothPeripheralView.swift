@@ -133,6 +133,40 @@ class Texts_BluetoothPeripheralView {
         )
     }()
 
+    static let aiDexScanNoticeTitle: String = {
+        return NSLocalizedString("aiDexScanNoticeTitle", tableName: filename, bundle: Bundle.main, value: "AiDex X / LinX", comment: "title of the notice shown before scanning for an AiDex X or LinX sensor")
+    }()
+
+    static let aiDexScanNoticeMessage: String = {
+        return NSLocalizedString(
+            "aiDexScanNoticeMessage",
+            tableName: filename,
+            bundle: Bundle.main,
+            value: "xDrip4iOS connects to the first AiDex X / LinX sensor it finds, so keep other AiDex sensors away while scanning.\n\nThe sensor must not be connected to the AiDex/LinX app or another phone. If it was, unpair it there first.\n\nWhen iOS asks to pair, accept the request. A new sensor is started automatically.\n\nThis direct connection is experimental.",
+            comment: "notice shown before scanning for an AiDex X or LinX sensor"
+        )
+    }()
+
+    static let aiDexPairingRefused: String = {
+        return NSLocalizedString("aiDexPairingRefused", tableName: filename, bundle: Bundle.main, value: "The AiDex sensor refused to pair. It is probably still paired with another phone or app. Unpair it there, then try again.", comment: "error shown when an AiDex sensor refuses to issue a pairing key")
+    }()
+
+    static let aiDexSavedKeyRejected: String = {
+        return NSLocalizedString("aiDexSavedKeyRejected", tableName: filename, bundle: Bundle.main, value: "The AiDex sensor no longer accepts the pairing key stored on this phone. Delete the sensor in xDrip4iOS, forget it in iOS Settings > Bluetooth, and add it again.", comment: "error shown when an AiDex sensor rejects the stored pairing key")
+    }()
+
+    static let aiDexForgetInIOSSettings: String = {
+        return NSLocalizedString("aiDexForgetInIOSSettings", tableName: filename, bundle: Bundle.main, value: "The AiDex sensor removed its pairing with this phone. Open iOS Settings > Bluetooth, forget the sensor, then reconnect in xDrip4iOS.", comment: "error shown when the sensor removed its Bluetooth pairing while iOS still holds one")
+    }()
+
+    static let aiDexSensorStart: String = {
+        return NSLocalizedString("aiDexSensorStart", tableName: filename, bundle: Bundle.main, value: "Sensor Start", comment: "row title for the AiDex sensor start date")
+    }()
+
+    static let aiDexBatteryVoltage: String = {
+        return NSLocalizedString("aiDexBatteryVoltage", tableName: filename, bundle: Bundle.main, value: "Battery Voltage", comment: "row title for the AiDex battery voltage")
+    }()
+
     static let libre2ScanNoticeTitle: String = {
         return NSLocalizedString("libre2ScanNoticeTitle", tableName: filename, bundle: Bundle.main, value: "Libre App Bluetooth", comment: "title of the notice shown before scanning for a Libre 2 sensor")
     }()

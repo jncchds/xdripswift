@@ -676,6 +676,8 @@ final class BluetoothPeripheralDetailState: NSObject, ObservableObject {
             return makeBubbleSections(bluetoothPeripheral: bluetoothPeripheral)
         case .MedtrumTouchCareNanoType:
             return makeMedtrumTouchCareNanoSections(bluetoothPeripheral: bluetoothPeripheral)
+        case .AiDexType:
+            return makeAiDexSections(bluetoothPeripheral: bluetoothPeripheral)
         case .M5StackType:
             return makeM5StackSections(bluetoothPeripheral: bluetoothPeripheral, includesSpecificM5StackSection: true)
         case .M5StickCType:
@@ -2894,6 +2896,26 @@ private extension BluetoothPeripheralDetailState {
         ]
     }
 
+    func makeAiDexSections(bluetoothPeripheral: BluetoothPeripheral) -> [BluetoothPeripheralDetailSection] {
+        guard let aiDex = bluetoothPeripheral as? AiDex else { return [] }
+
+        return [
+            BluetoothPeripheralDetailSection(
+                id: "aidex",
+                title: BluetoothPeripheralType.AiDexType.bluetoothPeripheralDisplayTitle,
+                rows: [
+                    row(id: "aidex-serial", title: Texts_BluetoothPeripheralView.sensorSerialNumber, detail: aiDex.blePeripheral.sensorSerialNumber),
+                    row(id: "aidex-status", title: Texts_Common.sensorStatus, detail: aiDex.sensorStatus),
+                    row(id: "aidex-model", title: Texts_BluetoothPeripheralView.sensorType, detail: aiDex.modelName),
+                    row(id: "aidex-start", title: Texts_BluetoothPeripheralView.aiDexSensorStart, detail: aiDex.sensorStartDate?.toStringInUserLocale(timeStyle: .short, dateStyle: .short)),
+                    row(id: "aidex-battery", title: Texts_BluetoothPeripheralView.aiDexBatteryVoltage, detail: aiDex.batteryMillivolts > 0 ? aiDex.batteryMillivolts.description + " mV" : nil),
+                    row(id: "aidex-firmware", title: Texts_Common.firmware, detail: aiDex.firmware),
+                    row(id: "aidex-hardware", title: Texts_Common.hardware, detail: aiDex.hardware)
+                ]
+            )
+        ]
+    }
+
     func makeLibreBridgeRows(
         idPrefix: String,
         sensorType: String?,
@@ -2972,6 +2994,12 @@ private extension BluetoothPeripheralType {
             return BluetoothPeripheralScanPreparationNotice(
                 title: Texts_BluetoothPeripheralView.medtrumNanoPumpScanNoticeTitle,
                 message: Texts_BluetoothPeripheralView.medtrumNanoPumpScanNoticeMessage
+            )
+
+        case .AiDexType:
+            return BluetoothPeripheralScanPreparationNotice(
+                title: Texts_BluetoothPeripheralView.aiDexScanNoticeTitle,
+                message: Texts_BluetoothPeripheralView.aiDexScanNoticeMessage
             )
 
         default:

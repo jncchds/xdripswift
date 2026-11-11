@@ -174,7 +174,7 @@ class BluetoothPeripheralManager: NSObject {
                         _ = m5StackBluetoothTransmitter.writeBgReadingInfo(bgReading: bgReadingToSend[0])
                     }
                     
-                case .DexcomType, .BubbleType, .MiaoMiaoType, .Libre2Type, .Libre3Type, .DexcomG7Type, .MedtrumTouchCareNanoType:
+                case .DexcomType, .BubbleType, .MiaoMiaoType, .Libre2Type, .Libre3Type, .DexcomG7Type, .MedtrumTouchCareNanoType, .AiDexType:
                     // cgm's don't receive reading, they send it
                     break
                     
@@ -416,6 +416,21 @@ class BluetoothPeripheralManager: NSObject {
                         }
                     }
 
+                case .AiDexType:
+
+                    if let aiDex = bluetoothPeripheral as? AiDex {
+
+                        if let cgmTransmitterDelegate = cgmTransmitterDelegate {
+
+                            newTransmitter = CGMAiDexTransmitter(address: aiDex.blePeripheral.address, name: aiDex.blePeripheral.name, serialNumber: aiDex.blePeripheral.sensorSerialNumber, bluetoothTransmitterDelegate: self, cGMAiDexTransmitterDelegate: self, cGMTransmitterDelegate: cgmTransmitterDelegate)
+
+                        } else {
+
+                            trace("in getBluetoothTransmitter, case AiDexType but cgmTransmitterDelegate is nil, looks like a coding error ", log: log, category: ConstantsLog.categoryBluetoothPeripheralManager, type: .error)
+
+                        }
+                    }
+
                 }
                 
                 
@@ -498,6 +513,11 @@ class BluetoothPeripheralManager: NSObject {
             case .MedtrumTouchCareNanoType:
                 if bluetoothTransmitter is CGMMedtrumTouchCareNanoTransmitter {
                     return .MedtrumTouchCareNanoType
+                }
+
+            case .AiDexType:
+                if bluetoothTransmitter is CGMAiDexTransmitter {
+                    return .AiDexType
                 }
                 
             }
@@ -593,6 +613,14 @@ class BluetoothPeripheralManager: NSObject {
             }
 
             return CGMMedtrumTouchCareNanoTransmitter(address: nil, name: nil, bluetoothTransmitterDelegate: bluetoothTransmitterDelegate ?? self, cGMTransmitterDelegate: cgmTransmitterDelegate)
+
+        case .AiDexType:
+
+            guard let cgmTransmitterDelegate = cgmTransmitterDelegate else {
+                fatalError("in createNewTransmitter, AiDexType, cgmTransmitterDelegate is nil")
+            }
+
+            return CGMAiDexTransmitter(address: nil, name: nil, serialNumber: nil, bluetoothTransmitterDelegate: bluetoothTransmitterDelegate ?? self, cGMAiDexTransmitterDelegate: self, cGMTransmitterDelegate: cgmTransmitterDelegate)
             
         }
         
@@ -1068,6 +1096,30 @@ class BluetoothPeripheralManager: NSObject {
 
                     }
 
+                case .AiDexType:
+
+                    if let aiDex = blePeripheral.aiDex {
+
+                        blePeripheralFound = true
+
+                        let index = insertInBluetoothPeripherals(bluetoothPeripheral: aiDex)
+
+                        if aiDex.blePeripheral.shouldconnect {
+
+                            bluetoothTransmitters.insert(CGMAiDexTransmitter(address: aiDex.blePeripheral.address, name: aiDex.blePeripheral.name, serialNumber: aiDex.blePeripheral.sensorSerialNumber, bluetoothTransmitterDelegate: self, cGMAiDexTransmitterDelegate: self, cGMTransmitterDelegate: cgmTransmitterDelegate), at: index)
+
+                            if bluetoothPeripheralType.category() == .CGM {
+                                currentCgmTransmitterAddress = blePeripheral.address
+                            }
+
+                        } else {
+
+                            bluetoothTransmitters.insert(nil, at: index)
+
+                        }
+
+                    }
+
                 }
 
             }
@@ -1187,7 +1239,7 @@ class BluetoothPeripheralManager: NSObject {
                     bluetoothPeripheral.blePeripheral.parameterUpdateNeededAtNextConnect = true
                 }
              
-            case .DexcomType, .BubbleType, .MiaoMiaoType, .Libre2Type, .Libre3Type, .Libre3HeartBeatType, .DexcomG7HeartBeatType, .OmniPodHeartBeatType, .DexcomG7Type, .MedtrumTouchCareNanoType:
+            case .DexcomType, .BubbleType, .MiaoMiaoType, .Libre2Type, .Libre3Type, .Libre3HeartBeatType, .DexcomG7HeartBeatType, .OmniPodHeartBeatType, .DexcomG7Type, .MedtrumTouchCareNanoType, .AiDexType:
 
                 // nothing to check
                 break

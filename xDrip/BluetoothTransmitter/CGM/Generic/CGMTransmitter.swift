@@ -198,6 +198,10 @@ enum CGMTransmitterType:String, CaseIterable {
     /// Keep this raw value stable because it is persisted in UserDefaults.
     case medtrumTouchCareNano = "Medtrum Nano"
 
+    /// AiDex X / LinX, direct Bluetooth connection (protocol ported from JugglucoNG).
+    /// Keep this raw value stable because it is persisted in UserDefaults.
+    case aiDex = "AiDex X / LinX"
+
     /// Direct Medtrum Nano glucose is already consumed by the connected pump and must not be
     /// exported as an independent CGM source to another OS-AID system.
     var osAidSharingPolicy: OSAidSharingPolicy {
@@ -222,6 +226,9 @@ enum CGMTransmitterType:String, CaseIterable {
 
         case .medtrumTouchCareNano:
             return .Medtrum
+
+        case .aiDex:
+            return .AiDex
 
         }
         
@@ -256,6 +263,10 @@ enum CGMTransmitterType:String, CaseIterable {
             // its internal sensor record from the sensorAge we pass with each reading.
             return true
 
+        case .aiDex:
+            // every live frame carries the minutes since sensor start
+            return true
+
         }
     }
     
@@ -277,6 +288,10 @@ enum CGMTransmitterType:String, CaseIterable {
 
         case .medtrumTouchCareNano:
             // EasyPatch owns sensor lifecycle. xDrip should not offer a manual start UI.
+            return false
+
+        case .aiDex:
+            // the sensor owns its session and is activated over Bluetooth on first connection
             return false
 
         }
@@ -305,6 +320,10 @@ enum CGMTransmitterType:String, CaseIterable {
             // No pump-battery surface in xDrip. Reuse the generic threshold so the UI has a sane default.
             return ConstantsDefaultAlertLevels.defaultBatteryAlertLevelLibre2
 
+        case .aiDex:
+            // battery voltage is shown on the device screen only, no battery alarm
+            return ConstantsDefaultAlertLevels.defaultBatteryAlertLevelLibre2
+
         }
     }
     
@@ -330,6 +349,9 @@ enum CGMTransmitterType:String, CaseIterable {
             return "voltB"
 
         case .medtrumTouchCareNano:
+            return ""
+
+        case .aiDex:
             return ""
 
         }
@@ -395,6 +417,9 @@ enum CGMTransmitterType:String, CaseIterable {
 
         case .medtrumTouchCareNano:
             return "Medtrum Nano Pump CGM"
+
+        case .aiDex:
+            return "AiDex X / LinX"
             
         default:
             return self.rawValue

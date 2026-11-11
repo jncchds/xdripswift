@@ -756,6 +756,23 @@ class Trace {
                                 traceInfo.appendStringAndNewLine("        Firmware: " + firmware)
                             }
                         }
+
+                    case .AiDexType:
+                        if let aiDex = blePeripheral.aiDex {
+
+                            traceInfo.appendStringAndNewLine("        Type: " + bluetoothPeripheralType.rawValue)
+                            traceInfo.appendStringAndNewLine("        Sensor serial: " + (aiDex.blePeripheral.sensorSerialNumber ?? "nil"))
+                            traceInfo.appendStringAndNewLine("        Model: " + (aiDex.modelName ?? "nil"))
+                            traceInfo.appendStringAndNewLine("        Firmware: " + (aiDex.firmware ?? "nil"))
+                            traceInfo.appendStringAndNewLine("        Hardware: " + (aiDex.hardware ?? "nil"))
+                            traceInfo.appendStringAndNewLine("        Wear days: " + aiDex.wearDays.description)
+                            traceInfo.appendStringAndNewLine("        Battery: " + aiDex.batteryMillivolts.description + " mV")
+                            traceInfo.appendStringAndNewLine("        Sensor start date: " + (aiDex.sensorStartDate?.toStringForTrace(timeStyle: .short, dateStyle: .medium) ?? "nil"))
+                            traceInfo.appendStringAndNewLine("        Sensor status: " + (aiDex.sensorStatus ?? "nil"))
+                            // Only whether a key exists is traced, never the key itself.
+                            let pairingRecord = aiDex.blePeripheral.sensorSerialNumber.flatMap { AiDexPairingStore.shared.load(serial: $0) }
+                            traceInfo.appendStringAndNewLine("        Pairing key stored: " + (pairingRecord != nil).description + ", link paired: " + (pairingRecord?.linkPaired ?? false).description)
+                        }
                     }
                 }
                 

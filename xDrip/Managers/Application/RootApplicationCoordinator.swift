@@ -2018,6 +2018,10 @@ import AppIntents
             // calibration factor decoded from each packet, so xDrip should not run its own calibrator.
             calibrator = NoCalibrator()
 
+        case .aiDex:
+            // AiDex sends factory-calibrated mg/dL values
+            calibrator = NoCalibrator()
+
         }
         
         trace("in getCalibrator, calibrator = %{public}@", log: log, category: ConstantsLog.categoryRootView, type: .info, calibrator.description())
@@ -2787,7 +2791,7 @@ import AppIntents
             }
             startDate = sensorStartDate ?? startDate
             switch transmitter?.cgmTransmitterType().sensorType() {
-            case .Libre:
+            case .Libre, .AiDex:
                 duration = transmitter?.sensorWarmupDurationInMinutes() ?? ConstantsMaster.minimumSensorWarmUpRequiredInMinutes
             case .Dexcom:
                 if transmitter?.cgmTransmitterType() == .dexcomG7 {
