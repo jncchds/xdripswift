@@ -174,7 +174,7 @@ class BluetoothPeripheralManager: NSObject {
                         _ = m5StackBluetoothTransmitter.writeBgReadingInfo(bgReading: bgReadingToSend[0])
                     }
                     
-                case .DexcomType, .BubbleType, .MiaoMiaoType, .Libre2Type, .Libre3Type, .DexcomG7Type, .MedtrumTouchCareNanoType, .AiDexType, .AccuChekSmartGuideType:
+                case .DexcomType, .BubbleType, .MiaoMiaoType, .Libre2Type, .Libre3Type, .DexcomG7Type, .MedtrumTouchCareNanoType, .AiDexType, .AccuChekSmartGuideType, .ICanType:
                     // cgm's don't receive reading, they send it
                     break
                     
@@ -446,6 +446,21 @@ class BluetoothPeripheralManager: NSObject {
                         }
                     }
 
+                case .ICanType:
+
+                    if let iCan = bluetoothPeripheral as? ICan {
+
+                        if let cgmTransmitterDelegate = cgmTransmitterDelegate {
+
+                            newTransmitter = CGMICanTransmitter(address: iCan.blePeripheral.address, name: iCan.blePeripheral.name, serialNumber: iCan.blePeripheral.sensorSerialNumber, bluetoothTransmitterDelegate: self, cGMICanTransmitterDelegate: self, cGMTransmitterDelegate: cgmTransmitterDelegate)
+
+                        } else {
+
+                            trace("in getBluetoothTransmitter, case ICanType but cgmTransmitterDelegate is nil, looks like a coding error ", log: log, category: ConstantsLog.categoryBluetoothPeripheralManager, type: .error)
+
+                        }
+                    }
+
                 }
                 
                 
@@ -538,6 +553,11 @@ class BluetoothPeripheralManager: NSObject {
             case .AccuChekSmartGuideType:
                 if bluetoothTransmitter is CGMAccuChekSmartGuideTransmitter {
                     return .AccuChekSmartGuideType
+                }
+
+            case .ICanType:
+                if bluetoothTransmitter is CGMICanTransmitter {
+                    return .ICanType
                 }
                 
             }
@@ -649,6 +669,14 @@ class BluetoothPeripheralManager: NSObject {
             }
 
             return CGMAccuChekSmartGuideTransmitter(address: nil, name: nil, serialNumber: nil, bluetoothTransmitterDelegate: bluetoothTransmitterDelegate ?? self, cGMAccuChekSmartGuideTransmitterDelegate: self, cGMTransmitterDelegate: cgmTransmitterDelegate)
+
+        case .ICanType:
+
+            guard let cgmTransmitterDelegate = cgmTransmitterDelegate else {
+                fatalError("in createNewTransmitter, ICanType, cgmTransmitterDelegate is nil")
+            }
+
+            return CGMICanTransmitter(address: nil, name: nil, serialNumber: nil, bluetoothTransmitterDelegate: bluetoothTransmitterDelegate ?? self, cGMICanTransmitterDelegate: self, cGMTransmitterDelegate: cgmTransmitterDelegate)
             
         }
         
@@ -1172,6 +1200,30 @@ class BluetoothPeripheralManager: NSObject {
 
                     }
 
+                case .ICanType:
+
+                    if let iCan = blePeripheral.iCan {
+
+                        blePeripheralFound = true
+
+                        let index = insertInBluetoothPeripherals(bluetoothPeripheral: iCan)
+
+                        if iCan.blePeripheral.shouldconnect {
+
+                            bluetoothTransmitters.insert(CGMICanTransmitter(address: iCan.blePeripheral.address, name: iCan.blePeripheral.name, serialNumber: iCan.blePeripheral.sensorSerialNumber, bluetoothTransmitterDelegate: self, cGMICanTransmitterDelegate: self, cGMTransmitterDelegate: cgmTransmitterDelegate), at: index)
+
+                            if bluetoothPeripheralType.category() == .CGM {
+                                currentCgmTransmitterAddress = blePeripheral.address
+                            }
+
+                        } else {
+
+                            bluetoothTransmitters.insert(nil, at: index)
+
+                        }
+
+                    }
+
                 }
 
             }
@@ -1291,7 +1343,7 @@ class BluetoothPeripheralManager: NSObject {
                     bluetoothPeripheral.blePeripheral.parameterUpdateNeededAtNextConnect = true
                 }
              
-            case .DexcomType, .BubbleType, .MiaoMiaoType, .Libre2Type, .Libre3Type, .Libre3HeartBeatType, .DexcomG7HeartBeatType, .OmniPodHeartBeatType, .DexcomG7Type, .MedtrumTouchCareNanoType, .AiDexType, .AccuChekSmartGuideType:
+            case .DexcomType, .BubbleType, .MiaoMiaoType, .Libre2Type, .Libre3Type, .Libre3HeartBeatType, .DexcomG7HeartBeatType, .OmniPodHeartBeatType, .DexcomG7Type, .MedtrumTouchCareNanoType, .AiDexType, .AccuChekSmartGuideType, .ICanType:
 
                 // nothing to check
                 break

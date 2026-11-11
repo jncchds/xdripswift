@@ -186,3 +186,8 @@
 "accuChekScanNoticeTitle" = "Accu-Chek SmartGuide";
 "accuChekScanNoticeMessage" = "xDrip4iOS connects to the first Accu-Chek SmartGuide sensor it finds, so keep other SmartGuide sensors away while scanning.\n\nThe sensor must not be connected to the Accu-Chek SmartGuide app.\n\nWhen iOS asks to pair, enter the PIN that came with the sensor.\n\nThis direct connection is experimental.";
 "accuChekForgetInIOSSettings" = "The Accu-Chek SmartGuide sensor removed its pairing with this phone. Open iOS Settings > Bluetooth, forget the sensor, then reconnect in xDrip4iOS.";
+"iCanScanNoticeTitle" = "iCan i3/i6";
+"iCanScanNoticeMessage" = "Start the sensor with the iCan app first: xDrip4iOS cannot start a new iCan sensor or install its calibration table.\n\nThen close the iCan app so it no longer connects to the sensor. xDrip4iOS connects to the first iCan sensor it finds, so keep other iCan sensors away while scanning.\n\nThis direct connection is experimental.";
+"iCanStartWithVendorApp" = "This iCan sensor has not been started. Start it with the iCan app, then reconnect in xDrip4iOS.";
+"iCanCalibrationTable" = "Calibration Table";
+"iCanNoCalibrationTable" = "Not installed";

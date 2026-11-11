@@ -185,6 +185,32 @@ class Texts_BluetoothPeripheralView {
         return NSLocalizedString("accuChekForgetInIOSSettings", tableName: filename, bundle: Bundle.main, value: "The Accu-Chek SmartGuide sensor removed its pairing with this phone. Open iOS Settings > Bluetooth, forget the sensor, then reconnect in xDrip4iOS.", comment: "error shown when the SmartGuide sensor removed its Bluetooth pairing while iOS still holds one")
     }()
 
+    static let iCanScanNoticeTitle: String = {
+        return NSLocalizedString("iCanScanNoticeTitle", tableName: filename, bundle: Bundle.main, value: "iCan i3/i6", comment: "title of the notice shown before scanning for an iCan sensor")
+    }()
+
+    static let iCanScanNoticeMessage: String = {
+        return NSLocalizedString(
+            "iCanScanNoticeMessage",
+            tableName: filename,
+            bundle: Bundle.main,
+            value: "Start the sensor with the iCan app first: xDrip4iOS cannot start a new iCan sensor or install its calibration table.\n\nThen close the iCan app so it no longer connects to the sensor. xDrip4iOS connects to the first iCan sensor it finds, so keep other iCan sensors away while scanning.\n\nThis direct connection is experimental.",
+            comment: "notice shown before scanning for an iCan sensor"
+        )
+    }()
+
+    static let iCanStartWithVendorApp: String = {
+        return NSLocalizedString("iCanStartWithVendorApp", tableName: filename, bundle: Bundle.main, value: "This iCan sensor has not been started. Start it with the iCan app, then reconnect in xDrip4iOS.", comment: "error shown when an iCan sensor is idle")
+    }()
+
+    static let iCanCalibrationTable: String = {
+        return NSLocalizedString("iCanCalibrationTable", tableName: filename, bundle: Bundle.main, value: "Calibration Table", comment: "row title for the iCan vendor calibration table marker")
+    }()
+
+    static let iCanNoCalibrationTable: String = {
+        return NSLocalizedString("iCanNoCalibrationTable", tableName: filename, bundle: Bundle.main, value: "Not installed", comment: "shown when the iCan sensor has no vendor calibration table")
+    }()
+
     static let libre2ScanNoticeTitle: String = {
         return NSLocalizedString("libre2ScanNoticeTitle", tableName: filename, bundle: Bundle.main, value: "Libre App Bluetooth", comment: "title of the notice shown before scanning for a Libre 2 sensor")
     }()

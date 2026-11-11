@@ -404,6 +404,9 @@ extension BluetoothPeripheralType {
         case .AccuChekSmartGuideType:
             // no dedicated guide yet
             return .addDirectCGM
+        case .ICanType:
+            // no dedicated guide yet
+            return .addDirectCGM
         }
     }
 }

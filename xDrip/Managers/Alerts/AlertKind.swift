@@ -95,7 +95,7 @@ public enum AlertKind: Int, CaseIterable {
             return .dexcomG7BatteryLow
         case .miaomiao, .Bubble, .Libre2:
             return .batterylow
-        case .Libre3, .medtrumTouchCareNano, .aiDex, .accuChekSmartGuide, nil:
+        case .Libre3, .medtrumTouchCareNano, .aiDex, .accuChekSmartGuide, .iCan, nil:
             // Medtrum does not currently provide a battery value through TransmitterBatteryInfo.
             // With no configured CGM there is likewise no meaningful battery alarm to edit.
             return nil

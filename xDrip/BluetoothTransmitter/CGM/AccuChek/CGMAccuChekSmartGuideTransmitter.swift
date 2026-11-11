@@ -409,15 +409,15 @@ class CGMAccuChekSmartGuideTransmitter: BluetoothTransmitter, CGMTransmitter {
         for measurement in measurements {
             guard lastOffset.map({ measurement.timeOffsetMinutes > $0 }) ?? true else { continue }
 
-            var value: Double?
+            var candidate: Double?
             if measurement.isUsableReading {
-                value = measurement.glucoseMgDl
+                candidate = measurement.glucoseMgDl
             } else if measurement.isBelowRange, let previousOffset = lastOffset, let previousValue = lastValue,
                       previousValue < 120, (5..<30).contains(measurement.timeOffsetMinutes - previousOffset) {
                 // Juggluco: the sensor's "below range" record after a falling value is stored as 39 mg/dL
-                value = 39
+                candidate = 39
             }
-            guard let value else {
+            guard let value = candidate else {
                 trace("SmartGuide: no glucose in record at offset %{public}d (flags %{public}@)", log: log, category: ConstantsLog.categoryCGMAccuChekSmartGuide, type: .info, measurement.timeOffsetMinutes, String(format: "%02X", measurement.flags))
                 reportStatus("Sensor error or warming up")
                 continue

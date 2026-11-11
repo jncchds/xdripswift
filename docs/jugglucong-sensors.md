@@ -11,15 +11,15 @@ under "Test on a Mac" has to happen before anyone relies on these readings.
 | --- | --- | --- |
 | AiDex X / LinX (and rebrands) | Ported | `Add direct Bluetooth support for AiDex X / LinX sensors` |
 | Accu-Chek SmartGuide | Ported | `Add direct Bluetooth support for Accu-Chek SmartGuide sensors` |
-| iCan i3/i6 (Sinocare) | Not ported yet (paused by request) | – |
+| iCan i3/i6 (Sinocare) | Ported, already-started sensors only | `Add direct Bluetooth support for iCan i3/i6 sensors` |
 | Sibionics GS1/GS2 | Skipped | – |
 | Ottai / SyAi | Skipped | – |
 | MQ / Glutec | Skipped | – |
 | Anytime / Yuwell | Skipped | – |
 | CareSens Air | Skipped | – |
 
-Core Data: AiDex adds model **v38** (entity `AiDex`), SmartGuide adds **v39** (entity
-`AccuChekSmartGuide`). Both are additive, so lightweight migration applies.
+Core Data: AiDex adds model **v38** (entity `AiDex`), SmartGuide **v39** (`AccuChekSmartGuide`),
+iCan **v40** (`ICan`). All are additive, so lightweight migration applies.
 
 ---
 
@@ -131,17 +131,52 @@ drops them too), trend from the sensor (xDrip computes its own).
 
 ---
 
-## iCan i3/i6 (Sinocare) — not ported yet
+## iCan i3/i6 (Sinocare)
 
-Assessed and judged portable in part, then paused on request. Notes for later:
-- Portable without cloud: CBC/PKCS7 auth with the bundled key families (selected from the
-  serial/software version), user-id recovery from the `1C F4 02` reject, 19-byte live frames,
-  `SN…` history batches, warm-up XOR keyed on challenge[0]. JugglucoNG has captured vectors
-  (`ICanHealthLiveCbcVectorTests`).
-- Not portable: provisioning fresh sensors with the vendor `correctCode` table needs Sinocare's
-  cloud and a signing step whose implementation is in packed native code; unprovisioned
-  sensors reportedly stop after about 7 days. A port would therefore only support sensors
-  already activated by the vendor app.
+**Ported** (`xDrip/BluetoothTransmitter/CGM/ICan/`), from `drivers/icanhealth/` and
+`docs/ican-cgm-protocol.md`:
+
+- Bundled vendor AES keys, key family chosen from characters 10–11 of the DIS serial (or the
+  software revision), CBC/PKCS7 with the challenge-derived IV (bytes 1/6/10/15).
+- Vendor authentication on 0x2AAC: `F3` → challenge → `F4 10 <token>` → `1C F4 01`. A sensor
+  started by the vendor app rejects the default user id; the expected id is recovered from the
+  `1C F4 02` rejection and authentication is retried once, as JugglucoNG does. The recovered id
+  is kept per serial.
+- `F6` calibration marker read and shown (0xFFFF = no vendor calibration table).
+- 19-byte live frames (every 3 minutes, 1 minute on i7), warm-up XOR keyed on challenge[0],
+  sensor profiles (interval, warm-up, lifetime per model family).
+- RACP glucose history from the last delivered sequence (max 12 h back), `SN` batches and single
+  16-byte records; command family F1 or legacy 01 chosen from the MTU (≥ 247), with JugglucoNG's
+  single live-edge retry after a refused range (0x0A).
+- Timestamps from the CGM Status minute counter (the stored 0x2AAA wall clock is unreliable).
+- Tests (`xDrip Tests/ICanProtocolTests.swift`): JugglucoNG's captured live frames (iCGM-t3 new
+  key, iCGM-t6 old key), the documented warm-up values (5.97 and 3.85 mmol/L), plus an auth
+  token and an SN batch generated with Python `cryptography`.
+
+**Skipped**: starting a fresh sensor (`1A` + session start write) and installing the vendor
+calibration table (`correctCode`): the table comes from the Sinocare cloud, whose signing step
+is in packed native code, and unprovisioned sensors reportedly stop after about 7 days. An idle
+sensor is reported ("start it with the iCan app"). Also skipped: user calibration (vendor
+libAlg port), original (current/temperature) history, the many address-rebind and
+onboarding-verification paths.
+
+**Risks**
+- Never compiled.
+- Glucose is the sensor's value in hundredths of mmol/L; on the one sensor JugglucoNG matched
+  against the factory table, readings ran high. Compare with fingersticks.
+- Sensors whose box serial selects the "direct" 16-bit history encoding are not detected (needs
+  the box serial, which this port does not ask for); they would read wrong history values.
+- The first iCan sensor in range is used.
+- Only one authentication retry; a sensor bound to another phone of the same vendor account
+  may still reject.
+
+**Test on a Mac**
+1. Build; run `ICanProtocolTests`.
+2. Start a sensor with the iCan app, close the app, add "iCan i3/i6" in xDrip4iOS. Check the trace
+   for `authenticated` (or `retrying with the recovered user id`), the calibration marker and
+   `requesting glucose history`.
+3. Compare values with the iCan app and fingersticks, including during warm-up.
+4. Out-of-range gap: history should fill it at 3-minute spacing.
 
 ## Skipped sensors
 

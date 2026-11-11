@@ -2026,6 +2026,10 @@ import AppIntents
             // the SmartGuide sensor calculates glucose itself
             calibrator = NoCalibrator()
 
+        case .iCan:
+            // the iCan sensor sends calibrated glucose
+            calibrator = NoCalibrator()
+
         }
         
         trace("in getCalibrator, calibrator = %{public}@", log: log, category: ConstantsLog.categoryRootView, type: .info, calibrator.description())
@@ -2795,7 +2799,7 @@ import AppIntents
             }
             startDate = sensorStartDate ?? startDate
             switch transmitter?.cgmTransmitterType().sensorType() {
-            case .Libre, .AiDex, .AccuChek:
+            case .Libre, .AiDex, .AccuChek, .ICan:
                 duration = transmitter?.sensorWarmupDurationInMinutes() ?? ConstantsMaster.minimumSensorWarmUpRequiredInMinutes
             case .Dexcom:
                 if transmitter?.cgmTransmitterType() == .dexcomG7 {

@@ -785,6 +785,18 @@ class Trace {
                             traceInfo.appendStringAndNewLine("        Sensor start date: " + (smartGuide.sensorStartDate?.toStringForTrace(timeStyle: .short, dateStyle: .medium) ?? "nil"))
                             traceInfo.appendStringAndNewLine("        Sensor status: " + (smartGuide.sensorStatus ?? "nil"))
                         }
+
+                    case .ICanType:
+                        if let iCan = blePeripheral.iCan {
+
+                            traceInfo.appendStringAndNewLine("        Type: " + bluetoothPeripheralType.rawValue)
+                            traceInfo.appendStringAndNewLine("        Sensor serial: " + (iCan.blePeripheral.sensorSerialNumber ?? "nil"))
+                            traceInfo.appendStringAndNewLine("        Model: " + (iCan.modelName ?? "nil"))
+                            traceInfo.appendStringAndNewLine("        Software: " + (iCan.softwareVersion ?? "nil"))
+                            traceInfo.appendStringAndNewLine("        Calibration marker: " + String(format: "0x%04X", Int(iCan.calibrationMarker)))
+                            traceInfo.appendStringAndNewLine("        Sensor start date: " + (iCan.sensorStartDate?.toStringForTrace(timeStyle: .short, dateStyle: .medium) ?? "nil"))
+                            traceInfo.appendStringAndNewLine("        Sensor status: " + (iCan.sensorStatus ?? "nil"))
+                        }
                     }
                 }
                 

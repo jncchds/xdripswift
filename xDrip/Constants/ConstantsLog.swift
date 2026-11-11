@@ -112,6 +112,9 @@ enum ConstantsLog {
     /// Accu-Chek SmartGuide direct Bluetooth CGM
     static let categoryCGMAccuChekSmartGuide =              "CGMAccuChekSmartGuide         "
 
+    /// Sinocare iCan direct Bluetooth CGM
+    static let categoryCGMICan =                            "CGMICan                       "
+
     /// alertmanager
     static let categoryAlertManager =                       "AlertManager                  "
     

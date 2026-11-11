@@ -680,6 +680,8 @@ final class BluetoothPeripheralDetailState: NSObject, ObservableObject {
             return makeAiDexSections(bluetoothPeripheral: bluetoothPeripheral)
         case .AccuChekSmartGuideType:
             return makeAccuChekSmartGuideSections(bluetoothPeripheral: bluetoothPeripheral)
+        case .ICanType:
+            return makeICanSections(bluetoothPeripheral: bluetoothPeripheral)
         case .M5StackType:
             return makeM5StackSections(bluetoothPeripheral: bluetoothPeripheral, includesSpecificM5StackSection: true)
         case .M5StickCType:
@@ -2937,6 +2939,28 @@ private extension BluetoothPeripheralDetailState {
         ]
     }
 
+    func makeICanSections(bluetoothPeripheral: BluetoothPeripheral) -> [BluetoothPeripheralDetailSection] {
+        guard let iCan = bluetoothPeripheral as? ICan else { return [] }
+
+        let marker = Int(iCan.calibrationMarker)
+        let markerText: String? = marker < 0 ? nil : (marker == 0xFFFF ? Texts_BluetoothPeripheralView.iCanNoCalibrationTable : String(format: "0x%04X", marker))
+
+        return [
+            BluetoothPeripheralDetailSection(
+                id: "ican",
+                title: BluetoothPeripheralType.ICanType.bluetoothPeripheralDisplayTitle,
+                rows: [
+                    row(id: "ican-serial", title: Texts_BluetoothPeripheralView.sensorSerialNumber, detail: iCan.blePeripheral.sensorSerialNumber),
+                    row(id: "ican-status", title: Texts_Common.sensorStatus, detail: iCan.sensorStatus),
+                    row(id: "ican-model", title: Texts_BluetoothPeripheralView.sensorType, detail: iCan.modelName),
+                    row(id: "ican-start", title: Texts_BluetoothPeripheralView.aiDexSensorStart, detail: iCan.sensorStartDate?.toStringInUserLocale(timeStyle: .short, dateStyle: .short)),
+                    row(id: "ican-calibration", title: Texts_BluetoothPeripheralView.iCanCalibrationTable, detail: markerText),
+                    row(id: "ican-software", title: Texts_Common.firmware, detail: iCan.softwareVersion)
+                ]
+            )
+        ]
+    }
+
     func makeLibreBridgeRows(
         idPrefix: String,
         sensorType: String?,
@@ -3027,6 +3051,12 @@ private extension BluetoothPeripheralType {
             return BluetoothPeripheralScanPreparationNotice(
                 title: Texts_BluetoothPeripheralView.accuChekScanNoticeTitle,
                 message: Texts_BluetoothPeripheralView.accuChekScanNoticeMessage
+            )
+
+        case .ICanType:
+            return BluetoothPeripheralScanPreparationNotice(
+                title: Texts_BluetoothPeripheralView.iCanScanNoticeTitle,
+                message: Texts_BluetoothPeripheralView.iCanScanNoticeMessage
             )
 
         default:

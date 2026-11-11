@@ -206,6 +206,10 @@ enum CGMTransmitterType:String, CaseIterable {
     /// Keep this raw value stable because it is persisted in UserDefaults.
     case accuChekSmartGuide = "Accu-Chek SmartGuide"
 
+    /// Sinocare iCan i3/i6, direct Bluetooth connection (protocol ported from JugglucoNG).
+    /// Keep this raw value stable because it is persisted in UserDefaults.
+    case iCan = "iCan i3/i6"
+
     /// Direct Medtrum Nano glucose is already consumed by the connected pump and must not be
     /// exported as an independent CGM source to another OS-AID system.
     var osAidSharingPolicy: OSAidSharingPolicy {
@@ -236,6 +240,9 @@ enum CGMTransmitterType:String, CaseIterable {
 
         case .accuChekSmartGuide:
             return .AccuChek
+
+        case .iCan:
+            return .ICan
 
         }
         
@@ -278,6 +285,10 @@ enum CGMTransmitterType:String, CaseIterable {
             // CGM Status carries the minutes since session start
             return true
 
+        case .iCan:
+            // CGM Status carries the minutes since session start
+            return true
+
         }
     }
     
@@ -307,6 +318,10 @@ enum CGMTransmitterType:String, CaseIterable {
 
         case .accuChekSmartGuide:
             // the sensor owns its session
+            return false
+
+        case .iCan:
+            // sensors are started with the iCan app
             return false
 
         }
@@ -343,6 +358,10 @@ enum CGMTransmitterType:String, CaseIterable {
             // no battery value is read from the sensor
             return ConstantsDefaultAlertLevels.defaultBatteryAlertLevelLibre2
 
+        case .iCan:
+            // no battery value is read from the sensor
+            return ConstantsDefaultAlertLevels.defaultBatteryAlertLevelLibre2
+
         }
     }
     
@@ -374,6 +393,9 @@ enum CGMTransmitterType:String, CaseIterable {
             return ""
 
         case .accuChekSmartGuide:
+            return ""
+
+        case .iCan:
             return ""
 
         }
@@ -445,6 +467,9 @@ enum CGMTransmitterType:String, CaseIterable {
 
         case .accuChekSmartGuide:
             return "Accu-Chek SmartGuide"
+
+        case .iCan:
+            return "iCan i3/i6"
             
         default:
             return self.rawValue
