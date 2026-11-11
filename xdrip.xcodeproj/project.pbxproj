@@ -922,6 +922,14 @@
 		A1DE00000000000000000012 /* AiDex+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DE00000000000000000011 /* AiDex+CoreDataProperties.swift */; };
 		A1DE00000000000000000014 /* BluetoothPeripheralManager+CGMAiDexTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DE00000000000000000013 /* BluetoothPeripheralManager+CGMAiDexTransmitterDelegate.swift */; };
 		A1DE00000000000000000016 /* AiDexProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DE00000000000000000015 /* AiDexProtocolTests.swift */; };
+		AC5A00000000000000000004 /* AccuChekSmartGuideProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5A00000000000000000003 /* AccuChekSmartGuideProtocol.swift */; };
+		AC5A00000000000000000006 /* CGMAccuChekSmartGuideTransmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5A00000000000000000005 /* CGMAccuChekSmartGuideTransmitter.swift */; };
+		AC5A00000000000000000008 /* CGMAccuChekSmartGuideTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5A00000000000000000007 /* CGMAccuChekSmartGuideTransmitterDelegate.swift */; };
+		AC5A0000000000000000000A /* AccuChekSmartGuide+BluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5A00000000000000000009 /* AccuChekSmartGuide+BluetoothPeripheral.swift */; };
+		AC5A0000000000000000000C /* AccuChekSmartGuide+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5A0000000000000000000B /* AccuChekSmartGuide+CoreDataClass.swift */; };
+		AC5A0000000000000000000E /* AccuChekSmartGuide+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5A0000000000000000000D /* AccuChekSmartGuide+CoreDataProperties.swift */; };
+		AC5A00000000000000000010 /* BluetoothPeripheralManager+CGMAccuChekSmartGuideTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5A0000000000000000000F /* BluetoothPeripheralManager+CGMAccuChekSmartGuideTransmitterDelegate.swift */; };
+		AC5A00000000000000000012 /* AccuChekSmartGuideProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5A00000000000000000011 /* AccuChekSmartGuideProtocolTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2250,6 +2258,15 @@
 		A1DE00000000000000000013 /* BluetoothPeripheralManager+CGMAiDexTransmitterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BluetoothPeripheralManager+CGMAiDexTransmitterDelegate.swift"; sourceTree = "<group>"; };
 		A1DE00000000000000000015 /* AiDexProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AiDexProtocolTests.swift; sourceTree = "<group>"; };
 		A1DE00000000000000000017 /* xdrip v38.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "xdrip v38.xcdatamodel"; sourceTree = "<group>"; };
+		AC5A00000000000000000003 /* AccuChekSmartGuideProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccuChekSmartGuideProtocol.swift; sourceTree = "<group>"; };
+		AC5A00000000000000000005 /* CGMAccuChekSmartGuideTransmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGMAccuChekSmartGuideTransmitter.swift; sourceTree = "<group>"; };
+		AC5A00000000000000000007 /* CGMAccuChekSmartGuideTransmitterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGMAccuChekSmartGuideTransmitterDelegate.swift; sourceTree = "<group>"; };
+		AC5A00000000000000000009 /* AccuChekSmartGuide+BluetoothPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccuChekSmartGuide+BluetoothPeripheral.swift"; sourceTree = "<group>"; };
+		AC5A0000000000000000000B /* AccuChekSmartGuide+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccuChekSmartGuide+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AC5A0000000000000000000D /* AccuChekSmartGuide+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccuChekSmartGuide+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AC5A0000000000000000000F /* BluetoothPeripheralManager+CGMAccuChekSmartGuideTransmitterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BluetoothPeripheralManager+CGMAccuChekSmartGuideTransmitterDelegate.swift"; sourceTree = "<group>"; };
+		AC5A00000000000000000011 /* AccuChekSmartGuideProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccuChekSmartGuideProtocolTests.swift; sourceTree = "<group>"; };
+		AC5A00000000000000000013 /* xdrip v39.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "xdrip v39.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2856,6 +2873,7 @@
 		4F2600213002000200000001 /* xDrip Tests */ = {
 			isa = PBXGroup;
 			children = (
+				AC5A00000000000000000011 /* AccuChekSmartGuideProtocolTests.swift */,
 				A1DE00000000000000000015 /* AiDexProtocolTests.swift */,
 				C2BBCA83D24E98D08C260FC2 /* Libre3 */,
 				BA0709260000000000000002 /* BasalInjectionTests.swift */,
@@ -3365,6 +3383,7 @@
 		F8A2BC1D25DB0D6D001D1E78 /* BluetoothPeripheral */ = {
 			isa = PBXGroup;
 			children = (
+				AC5A0000000000000000000F /* BluetoothPeripheralManager+CGMAccuChekSmartGuideTransmitterDelegate.swift */,
 				A1DE00000000000000000013 /* BluetoothPeripheralManager+CGMAiDexTransmitterDelegate.swift */,
 				9B0C0DE6B53BEEF522826593 /* BluetoothPeripheralManager+CGMLibre3TransmitterDelegate.swift */,
 				F8A2BC2125DB0D6D001D1E78 /* BluetoothPeripheralManager.swift */,
@@ -3777,6 +3796,8 @@
 		F8EA6CA421B9A25B0082976B /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				AC5A0000000000000000000D /* AccuChekSmartGuide+CoreDataProperties.swift */,
+				AC5A0000000000000000000B /* AccuChekSmartGuide+CoreDataClass.swift */,
 				A1DE00000000000000000011 /* AiDex+CoreDataProperties.swift */,
 				A1DE0000000000000000000F /* AiDex+CoreDataClass.swift */,
 				327E7A39ACA06F8CA491D1F3 /* Libre3+CoreDataClass.swift */,
@@ -3955,6 +3976,7 @@
 		F8F971AE23A5914C00C3F17D /* CGM */ = {
 			isa = PBXGroup;
 			children = (
+				AC5A00000000000000000002 /* AccuChek */,
 				A1DE00000000000000000002 /* AiDex */,
 				F8DF765923E350B100063910 /* Dexcom */,
 				F808D2CF240329D40084B5DB /* Libre */,
@@ -4012,6 +4034,7 @@
 		F8F971BA23A5915900C3F17D /* CGM */ = {
 			isa = PBXGroup;
 			children = (
+				AC5A00000000000000000001 /* AccuChek */,
 				A1DE00000000000000000001 /* AiDex */,
 				F8F971BB23A5915900C3F17D /* Dexcom */,
 				F8F971F023A5915900C3F17D /* Generic */,
@@ -4238,6 +4261,24 @@
 				A1DE0000000000000000000D /* AiDex+BluetoothPeripheral.swift */,
 			);
 			path = AiDex;
+			sourceTree = "<group>";
+		};
+		AC5A00000000000000000001 /* AccuChek */ = {
+			isa = PBXGroup;
+			children = (
+				AC5A00000000000000000007 /* CGMAccuChekSmartGuideTransmitterDelegate.swift */,
+				AC5A00000000000000000005 /* CGMAccuChekSmartGuideTransmitter.swift */,
+				AC5A00000000000000000003 /* AccuChekSmartGuideProtocol.swift */,
+			);
+			path = AccuChek;
+			sourceTree = "<group>";
+		};
+		AC5A00000000000000000002 /* AccuChek */ = {
+			isa = PBXGroup;
+			children = (
+				AC5A00000000000000000009 /* AccuChekSmartGuide+BluetoothPeripheral.swift */,
+			);
+			path = AccuChek;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -4831,6 +4872,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC5A00000000000000000012 /* AccuChekSmartGuideProtocolTests.swift in Sources */,
 				A1DE00000000000000000016 /* AiDexProtocolTests.swift in Sources */,
 				4F3200013008000100000001 /* BgReadingTrendTests.swift in Sources */,
 				5A0100043015000100000001 /* GlucoseRangeDistributionTests.swift in Sources */,
@@ -4877,6 +4919,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC5A00000000000000000010 /* BluetoothPeripheralManager+CGMAccuChekSmartGuideTransmitterDelegate.swift in Sources */,
+				AC5A0000000000000000000E /* AccuChekSmartGuide+CoreDataProperties.swift in Sources */,
+				AC5A0000000000000000000C /* AccuChekSmartGuide+CoreDataClass.swift in Sources */,
+				AC5A0000000000000000000A /* AccuChekSmartGuide+BluetoothPeripheral.swift in Sources */,
+				AC5A00000000000000000008 /* CGMAccuChekSmartGuideTransmitterDelegate.swift in Sources */,
+				AC5A00000000000000000006 /* CGMAccuChekSmartGuideTransmitter.swift in Sources */,
+				AC5A00000000000000000004 /* AccuChekSmartGuideProtocol.swift in Sources */,
 				A1DE00000000000000000014 /* BluetoothPeripheralManager+CGMAiDexTransmitterDelegate.swift in Sources */,
 				A1DE00000000000000000012 /* AiDex+CoreDataProperties.swift in Sources */,
 				A1DE00000000000000000010 /* AiDex+CoreDataClass.swift in Sources */,
@@ -6646,6 +6695,7 @@
 		F85FF3C2252D0C32004E6FF1 /* xdrip.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				AC5A00000000000000000013 /* xdrip v39.xcdatamodel */,
 				A1DE00000000000000000017 /* xdrip v38.xcdatamodel */,
 				D17EC7350000000000000001 /* xdrip v35.xcdatamodel */,
 				D17EC7360000000000000001 /* xdrip v36.xcdatamodel */,
@@ -6675,7 +6725,7 @@
 				F85FF3C3252D0C32004E6FF1 /* xdrip v12.xcdatamodel */,
 				F7936B31E35D82919DCDE294 /* xdrip v33.xcdatamodel */,
 			);
-			currentVersion = A1DE00000000000000000017 /* xdrip v38.xcdatamodel */;
+			currentVersion = AC5A00000000000000000013 /* xdrip v39.xcdatamodel */;
 			path = xdrip.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

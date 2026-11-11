@@ -44,6 +44,10 @@ enum BluetoothPeripheralType: String, CaseIterable {
     /// Keep this raw value stable because it is persisted with Bluetooth peripheral records.
     case AiDexType = "AiDex X / LinX"
 
+    /// Accu-Chek SmartGuide, direct Bluetooth connection.
+    /// Keep this raw value stable because it is persisted with Bluetooth peripheral records.
+    case AccuChekSmartGuideType = "Accu-Chek SmartGuide"
+
     func createNewBluetoothPeripheral(withAddress address: String, withName name: String, nsManagedObjectContext: NSManagedObjectContext) -> BluetoothPeripheral {
         
         switch self {
@@ -92,6 +96,9 @@ enum BluetoothPeripheralType: String, CaseIterable {
         case .AiDexType:
             return AiDex(address: address, name: name, alias: nil, nsManagedObjectContext: nsManagedObjectContext)
 
+        case .AccuChekSmartGuideType:
+            return AccuChekSmartGuide(address: address, name: name, alias: nil, nsManagedObjectContext: nsManagedObjectContext)
+
         }
 
     }
@@ -104,7 +111,7 @@ enum BluetoothPeripheralType: String, CaseIterable {
         case .M5StackType, .M5StickCType:
             return .M5Stack
             
-        case .DexcomType, .BubbleType, .MiaoMiaoType, .Libre2Type, .Libre3Type, .DexcomG7Type, .MedtrumTouchCareNanoType, .AiDexType:
+        case .DexcomType, .BubbleType, .MiaoMiaoType, .Libre2Type, .Libre3Type, .DexcomG7Type, .MedtrumTouchCareNanoType, .AiDexType, .AccuChekSmartGuideType:
             return .CGM
 
         case .Libre3HeartBeatType, .DexcomG7HeartBeatType, .OmniPodHeartBeatType:

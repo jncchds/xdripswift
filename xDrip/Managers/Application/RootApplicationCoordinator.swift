@@ -2022,6 +2022,10 @@ import AppIntents
             // AiDex sends factory-calibrated mg/dL values
             calibrator = NoCalibrator()
 
+        case .accuChekSmartGuide:
+            // the SmartGuide sensor calculates glucose itself
+            calibrator = NoCalibrator()
+
         }
         
         trace("in getCalibrator, calibrator = %{public}@", log: log, category: ConstantsLog.categoryRootView, type: .info, calibrator.description())
@@ -2791,7 +2795,7 @@ import AppIntents
             }
             startDate = sensorStartDate ?? startDate
             switch transmitter?.cgmTransmitterType().sensorType() {
-            case .Libre, .AiDex:
+            case .Libre, .AiDex, .AccuChek:
                 duration = transmitter?.sensorWarmupDurationInMinutes() ?? ConstantsMaster.minimumSensorWarmUpRequiredInMinutes
             case .Dexcom:
                 if transmitter?.cgmTransmitterType() == .dexcomG7 {

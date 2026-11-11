@@ -109,6 +109,9 @@ enum ConstantsLog {
     /// AiDex X / LinX direct Bluetooth CGM
     static let categoryCGMAiDex =                           "CGMAiDex                      "
 
+    /// Accu-Chek SmartGuide direct Bluetooth CGM
+    static let categoryCGMAccuChekSmartGuide =              "CGMAccuChekSmartGuide         "
+
     /// alertmanager
     static let categoryAlertManager =                       "AlertManager                  "
     

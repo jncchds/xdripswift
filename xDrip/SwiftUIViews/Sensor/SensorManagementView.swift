@@ -591,6 +591,8 @@ struct SensorManagementView: View {
             warmupMinutes = nil
         case .AiDex:
             warmupMinutes = transmitter?.sensorWarmupDurationInMinutes() ?? ConstantsMaster.minimumSensorWarmUpRequiredInMinutes
+        case .AccuChek:
+            warmupMinutes = transmitter?.sensorWarmupDurationInMinutes() ?? ConstantsMaster.minimumSensorWarmUpRequiredInMinutes
         case .none:
             warmupMinutes = nil
         }

@@ -43,6 +43,7 @@ enum TroubleshootingLogSource: String, Codable {
     case libre2PlusEU
     case medtrumNano
     case aiDex
+    case accuChekSmartGuide
     case nightscout
     case libreLinkUp
     case libreLinkUpRussia
@@ -100,6 +101,8 @@ enum TroubleshootingLogSource: String, Codable {
             self = .medtrumNano
         case .aiDex:
             self = .aiDex
+        case .accuChekSmartGuide:
+            self = .accuChekSmartGuide
         }
     }
 
@@ -138,6 +141,8 @@ enum TroubleshootingLogSource: String, Codable {
             self = .medtrumNano
         case .AiDexType:
             self = .aiDex
+        case .AccuChekSmartGuideType:
+            self = .accuChekSmartGuide
         case .M5StackType, .M5StickCType, .Libre3HeartBeatType,
              .DexcomG7HeartBeatType, .OmniPodHeartBeatType:
             return nil
@@ -162,6 +167,7 @@ enum TroubleshootingLogSource: String, Codable {
         case .libre2PlusEU: return "Libre 2 Plus EU"
         case .medtrumNano: return "Medtrum Nano Pump CGM"
         case .aiDex: return "AiDex X / LinX"
+        case .accuChekSmartGuide: return "Accu-Chek SmartGuide"
         case .nightscout: return "Nightscout"
         case .libreLinkUp: return "LibreLinkUp"
         case .libreLinkUpRussia: return "LibreLinkUp Russia"
@@ -181,7 +187,7 @@ enum TroubleshootingLogSource: String, Codable {
             return true
         case .dexcom, .dexcomG5, .dexcomG6, .dexcomOne, .dexcomG7, .dexcomOnePlus,
              .dexcomStelo, .miaoMiao, .bubble, .libre3, .libre2, .libre2EU, .libre2PlusEU,
-             .medtrumNano, .aiDex:
+             .medtrumNano, .aiDex, .accuChekSmartGuide:
             return false
         }
     }

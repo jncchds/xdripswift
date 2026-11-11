@@ -183,3 +183,6 @@
 "aiDexForgetInIOSSettings" = "The AiDex sensor removed its pairing with this phone. Open iOS Settings > Bluetooth, forget the sensor, then reconnect in xDrip4iOS.";
 "aiDexSensorStart" = "Sensor Start";
 "aiDexBatteryVoltage" = "Battery Voltage";
+"accuChekScanNoticeTitle" = "Accu-Chek SmartGuide";
+"accuChekScanNoticeMessage" = "xDrip4iOS connects to the first Accu-Chek SmartGuide sensor it finds, so keep other SmartGuide sensors away while scanning.\n\nThe sensor must not be connected to the Accu-Chek SmartGuide app.\n\nWhen iOS asks to pair, enter the PIN that came with the sensor.\n\nThis direct connection is experimental.";
+"accuChekForgetInIOSSettings" = "The Accu-Chek SmartGuide sensor removed its pairing with this phone. Open iOS Settings > Bluetooth, forget the sensor, then reconnect in xDrip4iOS.";

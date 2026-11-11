@@ -167,6 +167,24 @@ class Texts_BluetoothPeripheralView {
         return NSLocalizedString("aiDexBatteryVoltage", tableName: filename, bundle: Bundle.main, value: "Battery Voltage", comment: "row title for the AiDex battery voltage")
     }()
 
+    static let accuChekScanNoticeTitle: String = {
+        return NSLocalizedString("accuChekScanNoticeTitle", tableName: filename, bundle: Bundle.main, value: "Accu-Chek SmartGuide", comment: "title of the notice shown before scanning for an Accu-Chek SmartGuide sensor")
+    }()
+
+    static let accuChekScanNoticeMessage: String = {
+        return NSLocalizedString(
+            "accuChekScanNoticeMessage",
+            tableName: filename,
+            bundle: Bundle.main,
+            value: "xDrip4iOS connects to the first Accu-Chek SmartGuide sensor it finds, so keep other SmartGuide sensors away while scanning.\n\nThe sensor must not be connected to the Accu-Chek SmartGuide app.\n\nWhen iOS asks to pair, enter the PIN that came with the sensor.\n\nThis direct connection is experimental.",
+            comment: "notice shown before scanning for an Accu-Chek SmartGuide sensor"
+        )
+    }()
+
+    static let accuChekForgetInIOSSettings: String = {
+        return NSLocalizedString("accuChekForgetInIOSSettings", tableName: filename, bundle: Bundle.main, value: "The Accu-Chek SmartGuide sensor removed its pairing with this phone. Open iOS Settings > Bluetooth, forget the sensor, then reconnect in xDrip4iOS.", comment: "error shown when the SmartGuide sensor removed its Bluetooth pairing while iOS still holds one")
+    }()
+
     static let libre2ScanNoticeTitle: String = {
         return NSLocalizedString("libre2ScanNoticeTitle", tableName: filename, bundle: Bundle.main, value: "Libre App Bluetooth", comment: "title of the notice shown before scanning for a Libre 2 sensor")
     }()

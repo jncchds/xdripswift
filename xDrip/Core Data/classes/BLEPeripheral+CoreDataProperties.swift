@@ -69,6 +69,9 @@ extension BLEPeripheral {
 
     // a BLEPeripheral should only have one of dexcomG5, m5Stack, ...
     @NSManaged public var aiDex: AiDex?
+
+    // a BLEPeripheral should only have one of dexcomG5, m5Stack, ...
+    @NSManaged public var accuChekSmartGuide: AccuChekSmartGuide?
     
     /// sensorSerialNumber of last sensor that was read
     @NSManaged public var sensorSerialNumber: String?

@@ -678,6 +678,8 @@ final class BluetoothPeripheralDetailState: NSObject, ObservableObject {
             return makeMedtrumTouchCareNanoSections(bluetoothPeripheral: bluetoothPeripheral)
         case .AiDexType:
             return makeAiDexSections(bluetoothPeripheral: bluetoothPeripheral)
+        case .AccuChekSmartGuideType:
+            return makeAccuChekSmartGuideSections(bluetoothPeripheral: bluetoothPeripheral)
         case .M5StackType:
             return makeM5StackSections(bluetoothPeripheral: bluetoothPeripheral, includesSpecificM5StackSection: true)
         case .M5StickCType:
@@ -2916,6 +2918,25 @@ private extension BluetoothPeripheralDetailState {
         ]
     }
 
+    func makeAccuChekSmartGuideSections(bluetoothPeripheral: BluetoothPeripheral) -> [BluetoothPeripheralDetailSection] {
+        guard let smartGuide = bluetoothPeripheral as? AccuChekSmartGuide else { return [] }
+
+        return [
+            BluetoothPeripheralDetailSection(
+                id: "accuchek-smartguide",
+                title: BluetoothPeripheralType.AccuChekSmartGuideType.bluetoothPeripheralDisplayTitle,
+                rows: [
+                    row(id: "accuchek-serial", title: Texts_BluetoothPeripheralView.sensorSerialNumber, detail: smartGuide.blePeripheral.sensorSerialNumber),
+                    row(id: "accuchek-status", title: Texts_Common.sensorStatus, detail: smartGuide.sensorStatus),
+                    row(id: "accuchek-model", title: Texts_BluetoothPeripheralView.sensorType, detail: smartGuide.modelName),
+                    row(id: "accuchek-start", title: Texts_BluetoothPeripheralView.aiDexSensorStart, detail: smartGuide.sensorStartDate?.toStringInUserLocale(timeStyle: .short, dateStyle: .short)),
+                    row(id: "accuchek-firmware", title: Texts_Common.firmware, detail: smartGuide.firmware),
+                    row(id: "accuchek-hardware", title: Texts_Common.hardware, detail: smartGuide.hardware)
+                ]
+            )
+        ]
+    }
+
     func makeLibreBridgeRows(
         idPrefix: String,
         sensorType: String?,
@@ -3000,6 +3021,12 @@ private extension BluetoothPeripheralType {
             return BluetoothPeripheralScanPreparationNotice(
                 title: Texts_BluetoothPeripheralView.aiDexScanNoticeTitle,
                 message: Texts_BluetoothPeripheralView.aiDexScanNoticeMessage
+            )
+
+        case .AccuChekSmartGuideType:
+            return BluetoothPeripheralScanPreparationNotice(
+                title: Texts_BluetoothPeripheralView.accuChekScanNoticeTitle,
+                message: Texts_BluetoothPeripheralView.accuChekScanNoticeMessage
             )
 
         default:

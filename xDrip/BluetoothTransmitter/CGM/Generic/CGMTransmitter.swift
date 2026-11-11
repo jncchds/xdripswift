@@ -202,6 +202,10 @@ enum CGMTransmitterType:String, CaseIterable {
     /// Keep this raw value stable because it is persisted in UserDefaults.
     case aiDex = "AiDex X / LinX"
 
+    /// Accu-Chek SmartGuide, direct Bluetooth connection (Bluetooth SIG CGM profile).
+    /// Keep this raw value stable because it is persisted in UserDefaults.
+    case accuChekSmartGuide = "Accu-Chek SmartGuide"
+
     /// Direct Medtrum Nano glucose is already consumed by the connected pump and must not be
     /// exported as an independent CGM source to another OS-AID system.
     var osAidSharingPolicy: OSAidSharingPolicy {
@@ -229,6 +233,9 @@ enum CGMTransmitterType:String, CaseIterable {
 
         case .aiDex:
             return .AiDex
+
+        case .accuChekSmartGuide:
+            return .AccuChek
 
         }
         
@@ -267,6 +274,10 @@ enum CGMTransmitterType:String, CaseIterable {
             // every live frame carries the minutes since sensor start
             return true
 
+        case .accuChekSmartGuide:
+            // CGM Status carries the minutes since session start
+            return true
+
         }
     }
     
@@ -292,6 +303,10 @@ enum CGMTransmitterType:String, CaseIterable {
 
         case .aiDex:
             // the sensor owns its session and is activated over Bluetooth on first connection
+            return false
+
+        case .accuChekSmartGuide:
+            // the sensor owns its session
             return false
 
         }
@@ -324,6 +339,10 @@ enum CGMTransmitterType:String, CaseIterable {
             // battery voltage is shown on the device screen only, no battery alarm
             return ConstantsDefaultAlertLevels.defaultBatteryAlertLevelLibre2
 
+        case .accuChekSmartGuide:
+            // no battery value is read from the sensor
+            return ConstantsDefaultAlertLevels.defaultBatteryAlertLevelLibre2
+
         }
     }
     
@@ -352,6 +371,9 @@ enum CGMTransmitterType:String, CaseIterable {
             return ""
 
         case .aiDex:
+            return ""
+
+        case .accuChekSmartGuide:
             return ""
 
         }
@@ -420,6 +442,9 @@ enum CGMTransmitterType:String, CaseIterable {
 
         case .aiDex:
             return "AiDex X / LinX"
+
+        case .accuChekSmartGuide:
+            return "Accu-Chek SmartGuide"
             
         default:
             return self.rawValue

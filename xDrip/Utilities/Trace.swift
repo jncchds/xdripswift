@@ -773,6 +773,18 @@ class Trace {
                             let pairingRecord = aiDex.blePeripheral.sensorSerialNumber.flatMap { AiDexPairingStore.shared.load(serial: $0) }
                             traceInfo.appendStringAndNewLine("        Pairing key stored: " + (pairingRecord != nil).description + ", link paired: " + (pairingRecord?.linkPaired ?? false).description)
                         }
+
+                    case .AccuChekSmartGuideType:
+                        if let smartGuide = blePeripheral.accuChekSmartGuide {
+
+                            traceInfo.appendStringAndNewLine("        Type: " + bluetoothPeripheralType.rawValue)
+                            traceInfo.appendStringAndNewLine("        Sensor serial: " + (smartGuide.blePeripheral.sensorSerialNumber ?? "nil"))
+                            traceInfo.appendStringAndNewLine("        Model: " + (smartGuide.modelName ?? "nil"))
+                            traceInfo.appendStringAndNewLine("        Firmware: " + (smartGuide.firmware ?? "nil"))
+                            traceInfo.appendStringAndNewLine("        Hardware: " + (smartGuide.hardware ?? "nil"))
+                            traceInfo.appendStringAndNewLine("        Sensor start date: " + (smartGuide.sensorStartDate?.toStringForTrace(timeStyle: .short, dateStyle: .medium) ?? "nil"))
+                            traceInfo.appendStringAndNewLine("        Sensor status: " + (smartGuide.sensorStatus ?? "nil"))
+                        }
                     }
                 }
                 
